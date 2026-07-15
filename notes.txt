@@ -1,0 +1,26 @@
+layout thoughts
+- one general container
+- viewport div
+- buttons div
+
+buttons have IDs,
+
+backspace deletes one character
+AC resets
+% finds percent of
+div calls divide function
+
+maybe JS autogenerates the numbers 1-9, in one container?
+button classes are all rounded and equal size
+for i between 1 and 9, generate a div of class button
+generate event listener that returns i
+-- could save having to copy paste 9 divs
+
++/-, no idea how to do this yet, probably multiplies viewport by -1
+
+
+backspace | AC | % | div
+7 | 8 | 9 | multiply
+4 | 5 | 6 | subtract
+1 | 2 | 3 | add
++/- | 0 | . | equals

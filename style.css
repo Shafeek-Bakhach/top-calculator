@@ -1,0 +1,14 @@
+.case{
+    display: flex;
+    height: 300px;
+    width: 200px;
+    background-color: lightblue;
+    flex-direction: column;
+}
+.viewport{
+    border-radius: 5px;
+    background-color: coral;
+}
+.buttons{
+    background-color: steelblue;
+}
