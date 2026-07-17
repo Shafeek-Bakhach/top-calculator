@@ -6,22 +6,22 @@ let divide = (x1, x2) => x1 / x2;
 let num1 = 0;
 let op;
 let num2 = 0;
+let result = 0;
 
 let operate = (num1, op, num2) => {
-    if (op == "+"){
+    if (op == "plus"){
         return add(num1, num2);
-    }else if(op == "-"){
+    }else if(op == "minus"){
         return subtract(num1, num2);
-    }else if(op == "*"){
+    }else if(op == "multiply"){
         return multiply(num1, num2)
-    }else if(op == "/"){
+    }else if(op == "divide"){
         return divide(num1,num2);
     }
 }
 
 const calcButtons = document.querySelectorAll(".calc-button");
 const viewport = document.querySelector(".viewport p");
-
 
 calcButtons.forEach((button) =>{
     button.addEventListener("click", (e) => {
@@ -30,11 +30,14 @@ calcButtons.forEach((button) =>{
             num1 += e.target.textContent;
             viewport.textContent = +num1;
         }else if(classList.contains('operator') && !op){
-            op = e.target.textContent;
+            op = e.target.id;
             viewport.textContent += ' ' + e.target.textContent + ' ';
         }else if(num1 && op && classList.contains('number')){
             num2 += e.target.textContent;
             viewport.textContent += e.target.textContent;
+        }else if(e.target.id === 'equal'){
+            result = operate(+num1, op, +num2);
+            viewport.textContent = result;
         }
     })
 })
