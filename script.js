@@ -18,3 +18,17 @@ let operate = (num1, op, num2) => {
         return divide(num1,num2);
     }
 }
+
+const calcButtons = document.querySelectorAll(".calc-button");
+const viewport = document.querySelector(".viewport p");
+
+
+calcButtons.forEach((button) =>{
+    button.addEventListener("click", (e) => {
+        const classList = e.target.classList;
+        if(classList.contains('number')){
+            if (viewport.textContent === '0'){viewport.textContent = e.target.textContent;}
+            else{viewport.textContent += e.target.textContent;}
+                
+        }
+})})

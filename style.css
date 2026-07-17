@@ -8,7 +8,31 @@
 .viewport{
     border-radius: 5px;
     background-color: coral;
+    flex:1;
+    margin: 5px 10px;
+    display: flex;
+}
+.viewport p{
+    flex:1;
+    background-color: lightgoldenrodyellow;
 }
 .buttons{
-    background-color: steelblue;
+    background-color:lightgreen;
+    margin: 5px 10px;
+    flex:4;
+    display:flex;
+    flex-direction: column;
+    gap:2px;
+}
+.row{
+    display:flex;
+    gap:5px;
+    flex:1;
+    background-color: cadetblue;
+    padding:5px;
+}
+button{
+    flex: 1;
+    border-radius: 30px;
+    border-style: none;
 }
