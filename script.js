@@ -3,11 +3,6 @@ let subtract = (x1, x2) => x1 - x2;
 let multiply = (x1, x2) => x1 * x2;
 let divide = (x1, x2) => x1 / x2;
 
-let num1 = 0;
-let op;
-let num2 = 0;
-let result = 0;
-
 let operate = (num1, op, num2) => {
     if (op == "plus"){
         return add(num1, num2);
@@ -23,27 +18,67 @@ let operate = (num1, op, num2) => {
 const calcButtons = document.querySelectorAll(".calc-button");
 const viewport = document.querySelector(".viewport p");
 
+let num1 = 0;
+let op;
+let num2 = 0;
+let updateSecond = false;
+let result = 0;
+
 calcButtons.forEach((button) =>{
     button.addEventListener("click", (e) => {
         const classList = e.target.classList;
-        if(classList.contains('number') && !op){
+        if(classList.contains("number") && updateSecond){
+            num2 += e.target.textContent;
+            viewport.textContent = +num2;
+            console.log(num2);
+        }else if(classList.contains("number") && !updateSecond){
             num1 += e.target.textContent;
             viewport.textContent = +num1;
-        }else if(classList.contains('operator') && !op){
-            op = e.target.id;
-            viewport.textContent += ' ' + e.target.textContent + ' ';
-        }else if(num1 && op && classList.contains('number')){
-            num2 += e.target.textContent;
-            viewport.textContent += e.target.textContent;
-        }else if(e.target.id === 'equal'){
-            result = operate(+num1, op, +num2);
-            viewport.textContent = result;
+            console.log(num1)
         }
-    })
-})
+        if(classList.contains("operator") && ['plus', 'minus','divide','multiply'].includes(e.target.id)){
 
-// if class is number and num1 = 0 then update num1
-// elseif class is operator and op is undefined, fill in only one operator value
-// elseif both num1 and op are not undefined, then update num2
-// if equal is clicked, check if divide operator is being used and if 0 is num2, if so return snarky text else return result of operate
-// update viewport text with result of operate
+            if(num1 != 0 && num2 != 0){
+                console.log("in place evaluation triggered!")
+                result = operate(+num1, op, +num2);
+                console.log(`result stored in memory is ${result}`)
+                viewport.textContent = result;
+                num1 = result;
+                num2 = 0;
+                console.log(`num1: ${num1}`)
+                console.log(`num2: ${num2}`)
+            }
+            op = e.target.id;
+            updateSecond = true;
+            console.log(op)
+        }
+        if(e.target.id === 'equal'){
+            result = operate(+num1, op, +num2);
+            updateSecond = false;
+            num1 = 0;
+            num2 = 0;
+            viewport.textContent = result;
+            console.log(`stored result is ${result}`)
+        }
+        if(e.target.id === 'ac'){
+            viewport.textContent = '0';
+            num1 = 0;
+            num2 = 0;
+            op = undefined;
+        }
+    }
+)});
+// viewport starts off as 0
+// number clicks enters digits one by one, updates num1, "1" + "2" = "12"
+// operator is clicked (does not show up in viewport!) "="
+// next tap after operator tap sets viewport to that number "7"
+// next tap "-" sets viewport to 12 + 7 = 19
+// next tap "1" sets viewport to 1
+// hitting equal "=" sets 19-1 = 18
+
+// so operators are never shown
+// needs to be a loop of some kind, same button can be pressed more than once
+
+// how to update the variables in the correct order?
+// button gets clicks, read its class
+// if class is number and operator is defined, then update num2 else update num1
