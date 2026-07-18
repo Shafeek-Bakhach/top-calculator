@@ -23,18 +23,28 @@ let op;
 let num2 = 0;
 let updateSecond = false;
 let result = 0;
+let reset = () => {
+    num1=0;
+    num2=0;
+    op=undefined;
+}
 
 calcButtons.forEach((button) =>{
     button.addEventListener("click", (e) => {
         const classList = e.target.classList;
+        if(op == 'divide' && num2 == 0 && e.target.id === 'equal'){
+            viewport.textContent = 'You quackin fool!';
+            reset();
+            
+        }
         if(classList.contains("number") && updateSecond){
             num2 += e.target.textContent;
             viewport.textContent = +num2;
-            console.log(num2);
+            console.log(`updating num2: ${num2}`);
         }else if(classList.contains("number") && !updateSecond){
             num1 += e.target.textContent;
             viewport.textContent = +num1;
-            console.log(num1)
+            console.log(`updating num1: ${num1}`)
         }
         if(classList.contains("operator") && ['plus', 'minus','divide','multiply'].includes(e.target.id)){
 
@@ -52,19 +62,17 @@ calcButtons.forEach((button) =>{
             updateSecond = true;
             console.log(op)
         }
-        if(e.target.id === 'equal'){
+        if(e.target.id === 'equal' && num1 != 0 && num2 != 0){
+            console.log(`num1: ${num1}`)
+            console.log(`num2: ${num2}`)
             result = operate(+num1, op, +num2);
             updateSecond = false;
-            num1 = 0;
-            num2 = 0;
             viewport.textContent = result;
-            console.log(`stored result is ${result}`)
+            console.log(`stored result is ${result}`);
         }
         if(e.target.id === 'ac'){
             viewport.textContent = '0';
-            num1 = 0;
-            num2 = 0;
-            op = undefined;
+            reset();
         }
     }
 )});
