@@ -18,20 +18,21 @@ let operate = (num1, op, num2) => {
 const calcButtons = document.querySelectorAll(".calc-button");
 const viewport = document.querySelector(".viewport p");
 
-let num1 = 0;
+let num1 = '';
 let op;
-let num2 = 0;
+let num2 = '';
 let updateSecond = false;
 let result = 0;
 let reset = () => {
-    num1=0;
-    num2=0;
+    num1='';
+    num2='';
     op=undefined;
 }
 
 calcButtons.forEach((button) =>{
     button.addEventListener("click", (e) => {
         const classList = e.target.classList;
+        console.log(e.target.id)
         if(op == 'divide' && num2 == 0 && e.target.id === 'equal'){
             viewport.textContent = 'You quackin fool!';
             reset();
@@ -54,7 +55,7 @@ calcButtons.forEach((button) =>{
                 console.log(`result stored in memory is ${result}`)
                 viewport.textContent = result;
                 num1 = result;
-                num2 = 0;
+                num2 = '';
                 console.log(`num1: ${num1}`)
                 console.log(`num2: ${num2}`)
             }
@@ -73,6 +74,49 @@ calcButtons.forEach((button) =>{
         if(e.target.id === 'ac'){
             viewport.textContent = '0';
             reset();
+        }
+        if(e.target.id === 'backspace'){
+            if(updateSecond && num2.length > 1){
+                num2 = num2.slice(0,num2.length - 1);
+                viewport.textContent = +num2;
+            }else if(!updateSecond && num1.length > 1){
+                num1 = num1.slice(0, num1.length - 1);
+                viewport.textContent = +num1;
+            }
+        }
+        if(e.target.id === 'percent'){
+            if (result != 0){
+                result /= 100;
+                viewport.textContent = +result;
+            }
+            else if(updateSecond){
+                num2 /= 100;
+                viewport.textContent = +num2;
+            }else if(!updateSecond){
+                num1 /= 100;
+                viewport.textContent = +num1;
+            }
+        
+        }
+        if(e.target.id === 'period'){
+            if(updateSecond && !num2.includes('.')){
+                console.log('num2 does not have period');
+                num2 += '.'
+                viewport.textContent = num2;
+            }else if(!updateSecond && !num1.includes('.')){
+                console.log('num1 does not have period');
+                num1 += '.'
+                viewport.textContent = num1;
+            }
+        }
+        if(e.target.id === 'plus-minus'){
+            if(updateSecond){
+                num2 = '-' + num2
+                viewport.textContent = num2;
+            }else if(!updateSecond){
+                num1 = '-' + num1
+                viewport.textContent = num1;
+            }
         }
     }
 )});
