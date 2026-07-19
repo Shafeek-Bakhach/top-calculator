@@ -18,12 +18,14 @@ let operate = (num1, op, num2) => {
 const calcButtons = document.querySelectorAll(".calc-button");
 const viewport = document.querySelector(".viewport p");
 
+// Initially I tried the number variables as number types, but it's tricky with the '-' and decimals
+// strings are converted to numbers in the operations so it works
 let num1 = '';
 let op;
 let num2 = '';
-let updateSecond = false;
+let updateSecond = false; // Helps me keep track of which number variable to update
 let result = 0;
-let reset = () => {
+let reset = () => { // I noticed I kept repeating this logic with the AC and dividing by 0 situations
     num1='';
     num2='';
     op=undefined;
@@ -32,44 +34,35 @@ let reset = () => {
 calcButtons.forEach((button) =>{
     button.addEventListener("click", (e) => {
         const classList = e.target.classList;
-        console.log(e.target.id)
         if(op == 'divide' && num2 == 0 && e.target.id === 'equal'){
             viewport.textContent = 'You quackin fool!';
-            reset();
-            
+            reset(); 
         }
+        // This is the crux of the calculator
         if(classList.contains("number") && updateSecond){
             num2 += e.target.textContent;
             viewport.textContent = +num2;
-            console.log(`updating num2: ${num2}`);
+
         }else if(classList.contains("number") && !updateSecond){
             num1 += e.target.textContent;
             viewport.textContent = +num1;
-            console.log(`updating num1: ${num1}`)
         }
         if(classList.contains("operator") && ['plus', 'minus','divide','multiply'].includes(e.target.id)){
 
             if(num1 != 0 && num2 != 0){
-                console.log("in place evaluation triggered!")
                 result = operate(+num1, op, +num2);
-                console.log(`result stored in memory is ${result}`)
                 viewport.textContent = result;
                 num1 = result;
                 num2 = '';
-                console.log(`num1: ${num1}`)
-                console.log(`num2: ${num2}`)
             }
             op = e.target.id;
             updateSecond = true;
-            console.log(op)
         }
         if(e.target.id === 'equal' && num1 != 0 && num2 != 0){
-            console.log(`num1: ${num1}`)
-            console.log(`num2: ${num2}`)
+
             result = operate(+num1, op, +num2);
             updateSecond = false;
             viewport.textContent = result;
-            console.log(`stored result is ${result}`);
         }
         if(e.target.id === 'ac'){
             viewport.textContent = '0';
@@ -100,11 +93,9 @@ calcButtons.forEach((button) =>{
         }
         if(e.target.id === 'period'){
             if(updateSecond && !num2.includes('.')){
-                console.log('num2 does not have period');
                 num2 += '.'
                 viewport.textContent = num2;
             }else if(!updateSecond && !num1.includes('.')){
-                console.log('num1 does not have period');
                 num1 += '.'
                 viewport.textContent = num1;
             }
@@ -120,17 +111,3 @@ calcButtons.forEach((button) =>{
         }
     }
 )});
-// viewport starts off as 0
-// number clicks enters digits one by one, updates num1, "1" + "2" = "12"
-// operator is clicked (does not show up in viewport!) "="
-// next tap after operator tap sets viewport to that number "7"
-// next tap "-" sets viewport to 12 + 7 = 19
-// next tap "1" sets viewport to 1
-// hitting equal "=" sets 19-1 = 18
-
-// so operators are never shown
-// needs to be a loop of some kind, same button can be pressed more than once
-
-// how to update the variables in the correct order?
-// button gets clicks, read its class
-// if class is number and operator is defined, then update num2 else update num1

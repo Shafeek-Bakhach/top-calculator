@@ -1,38 +1,52 @@
+body{
+    display: flex;
+    justify-content: center;
+    font-family: "Press Start 2P", system-ui;
+    align-items: center;
+    min-height: 100vh; /* copied from Stack Overflow https://stackoverflow.com/questions/31217268/center-div-on-the-middle-of-screen */
+}
+button{
+    font-family: inherit;
+    font-size:10px;
+    flex: 1;
+    border-radius: 50%;
+    border-style: none;
+}
 .case{
     display: flex;
     height: 300px;
     width: 200px;
+    border-radius: 10px;
+    border: solid slategray 1px;
     background-color: lightblue;
     flex-direction: column;
 }
 .viewport{
     border-radius: 5px;
-    background-color: coral;
+    background-color: lightseagreen;
     flex:1;
-    margin: 5px 10px;
+    margin: 10px 10px 5px;
     display: flex;
+    flex-direction: row-reverse;
 }
 .viewport p{
-    flex:1;
-    background-color: lightgoldenrodyellow;
+    font-size: 18px;
 }
 .buttons{
-    background-color:lightgreen;
     margin: 5px 10px;
     flex:4;
     display:flex;
     flex-direction: column;
     gap:2px;
 }
+.operator{
+    background-color: 	#fff5c3;
+}
 .row{
     display:flex;
     gap:5px;
     flex:1;
+    border-radius: 5px;
     background-color: cadetblue;
     padding:5px;
-}
-button{
-    flex: 1;
-    border-radius: 30px;
-    border-style: none;
 }
