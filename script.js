@@ -29,6 +29,7 @@ let reset = () => { // I noticed I kept repeating this logic with the AC and div
     num1='';
     num2='';
     op=undefined;
+    result=0;
 }
 
 calcButtons.forEach((button) =>{
@@ -41,11 +42,11 @@ calcButtons.forEach((button) =>{
         // This is the crux of the calculator
         if(classList.contains("number") && updateSecond){
             num2 += e.target.textContent;
-            viewport.textContent = +num2;
+            viewport.textContent = num2;
 
         }else if(classList.contains("number") && !updateSecond){
             num1 += e.target.textContent;
-            viewport.textContent = +num1;
+            viewport.textContent = num1;
         }
         if(classList.contains("operator") && ['plus', 'minus','divide','multiply'].includes(e.target.id)){
 
