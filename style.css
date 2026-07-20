@@ -1,5 +1,6 @@
 body{
     display: flex;
+    background-color: lightgrey;
     justify-content: center;
     font-family: "Press Start 2P", system-ui;
     align-items: center;
@@ -28,6 +29,7 @@ button{
     margin: 10px 10px 5px;
     display: flex;
     flex-direction: row-reverse;
+    overflow: hidden;
 }
 .viewport p{
     font-size: 24px;
