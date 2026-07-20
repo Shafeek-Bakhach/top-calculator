@@ -1,6 +1,6 @@
 body{
     display: flex;
-    background-color: lightgrey;
+    background-color: lightgoldenrodyellow;
     justify-content: center;
     font-family: "Press Start 2P", system-ui;
     align-items: center;
@@ -12,6 +12,10 @@ button{
     flex: 1;
     border-radius: 50%;
     border-style: none;
+}
+button:hover {
+  background-color: #2980b9;
+  color: #f0f0f0;
 }
 .case{
     display: flex;
